@@ -1,0 +1,4495 @@
+{
+	"info": {
+		"_postman_id": "8efd6fe7-e908-41f3-b189-bc5146ce8846",
+		"name": "Twelfthman CI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20896111",
+		"_collection_link": "https://twelfthman.postman.co/workspace/Team-Workspace~7e4440ef-e7a4-47bb-8173-78f8bf262df5/collection/20896111-8efd6fe7-e908-41f3-b189-bc5146ce8846?action=share&source=collection_link&creator=20896111"
+	},
+	"item": [
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Cashfree",
+					"item": [
+						{
+							"name": "Deposit",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Token",
+										"value": "{{Token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"Amount\":\"10\",\"DepositOfferID\":\"\"}"
+								},
+								"url": {
+									"raw": "{{site_url}}Cashfree/Deposit",
+									"host": [
+										"{{site_url}}Cashfree"
+									],
+									"path": [
+										"Deposit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generate CFToken",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-client-id",
+										"value": "{{cashfree_app_id}}",
+										"type": "text"
+									},
+									{
+										"key": "x-client-secret",
+										"value": "{{cashfree_secret_key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://test.cashfree.com/api/v2/cftoken/order",
+									"protocol": "https",
+									"host": [
+										"test",
+										"cashfree",
+										"com"
+									],
+									"path": [
+										"api",
+										"v2",
+										"cftoken",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RazorPay",
+					"item": []
+				},
+				{
+					"name": "WebHook",
+					"item": [
+						{
+							"name": "Cashfree Notify(Old)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\": \"t3347f2012\",\n    \"orderAmount\": \"20.00\",\n    \"referenceId\": \"885351065\",\n    \"txStatus\": \"SUCCESS\",\n    \"paymentMode\": \"Wallet\",\n    \"txMsg\": \"Transaction pending\",\n    \"txTime\": \"2022-07-11 16:48:36\",\n    \"signature\": \"jzc9shBUA8uFKF6Ta6tBUo5K2SOVW+TJEOIj49qk5xo=\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}Cashfree/Notify",
+									"host": [
+										"{{site_url}}Cashfree"
+									],
+									"path": [
+										"Notify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RazorPayWebhook",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept-encoding": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-razorpay-event-id",
+										"value": "Jspwhw20QZd4us",
+										"type": "text"
+									},
+									{
+										"key": "x-razorpay-signature",
+										"value": "e2dd3d91e02ff44c54a6a397febfea5bc67d2fd1210a117e38ab5e5eabddee58",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"entity\": \"event\",\n    \"account_id\": \"acc_FIL7q4eX72GlHc\",\n    \"event\": \"payment.captured\",\n    \"contains\": [\n        \"payment\"\n    ],\n    \"payload\": {\n        \"payment\": {\n            \"entity\": {\n                \"id\": \"pay_Jspwe18FMCGfNW\",\n                \"entity\": \"payment\",\n                \"amount\": 6200,\n                \"currency\": \"INR\",\n                \"status\": \"captured\",\n                \"order_id\": \"order_Jspw7FvsgRs03F\",\n                \"invoice_id\": null,\n                \"international\": false,\n                \"method\": \"wallet\",\n                \"amount_refunded\": 0,\n                \"refund_status\": null,\n                \"captured\": true,\n                \"description\": \"Test Transaction\",\n                \"card_id\": null,\n                \"bank\": null,\n                \"wallet\": \"phonepe\",\n                \"vpa\": null,\n                \"email\": \"gaurav.kumar@example.com\",\n                \"contact\": \"+919999999999\",\n                \"notes\": {\n                    \"order_id\": \"tc1e923938\",\n                    \"UserID\": \"7\",\n                    \"UserEmail\": \"akash@nxgnsportsinteractive.com\",\n                    \"UserMobile\": \"8905255799\",\n                    \"order_note\": \"Twelfthman Wallet Deposit\",\n                    \"address\": \"Razorpay Corporate Office\"\n                },\n                \"fee\": 146,\n                \"tax\": 22,\n                \"error_code\": null,\n                \"error_description\": null,\n                \"error_source\": null,\n                \"error_step\": null,\n                \"error_reason\": null,\n                \"acquirer_data\": {\n                    \"transaction_id\": null\n                },\n                \"created_at\": 1657712343\n            }\n        }\n    },\n    \"created_at\": 1657712347\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}Webhook/RazorPayWebhook",
+									"host": [
+										"{{site_url}}Webhook"
+									],
+									"path": [
+										"RazorPayWebhook"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cashfree Notify New",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept-encoding": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-webhook-signature",
+										"value": "cy62iYMSv+YlGZsOHN2dQjDbWcSMJ+\\/j1D9XvGjn+5w=",
+										"type": "text"
+									},
+									{
+										"key": "x-webhook-timestamp",
+										"value": "1670828790176",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"data\":{\"order\":{\"order_id\":\"t0c5514f27\",\"order_amount\":450,\"order_currency\":\"INR\",\"order_tags\":null},\"payment\":{\"cf_payment_id\":885849726,\"payment_status\":\"SUCCESS\",\"payment_amount\":450,\"payment_currency\":\"INR\",\"payment_message\":\"Transaction Successful\",\"payment_time\":\"2022-12-12T12:36:27+05:30\",\"bank_reference\":\"61438\",\"auth_id\":null,\"payment_method\":[],\"payment_group\":\"wallet\"},\"customer_details\":{\"customer_name\":null,\"customer_id\":null,\"customer_email\":\"foram@nxgnsportsinteractive.com\",\"customer_phone\":\"9725543814\"}},\"event_time\":\"2022-12-12T12:36:30+05:30\",\"type\":\"PAYMENT_SUCCESS_WEBHOOK\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}Cashfree/Notify",
+									"host": [
+										"{{site_url}}Cashfree"
+									],
+									"path": [
+										"Notify"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deposit Amount",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Amount\": 62,\n    \"DepositOfferID\": \"\",\n    \"PaymentGateway\": \"Cashfree\",\n    \"PromoCode\": \"TWMAN200\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}Payment/Deposit",
+							"host": [
+								"{{site_url}}Payment"
+							],
+							"path": [
+								"Deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Details",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "c136d963211f66922b201750c6ce0feb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"PaymentGateway\": \"Razorpay\",\n    \"PaymentId\": \"pay_Jspwe18FMCGfNW\",\n    \"OrderId\": \"order_Jspw7FvsgRs03F\",\n    \"Signature\": \"e02b97af4fa87e52c7f115bbf2fb00d8aac82cb676f69440024d0b55903c3d81\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}Payment/UpdateOrder",
+							"host": [
+								"{{site_url}}Payment"
+							],
+							"path": [
+								"UpdateOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "7be5dca7bc6c58ffb529fa58d6de937c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Amount\":\"250\",\"debug\":\"1\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}Withdraw",
+							"host": [
+								"{{site_url}}Withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "fa0f780827e2a91a008b36cdaec03623",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetBalance",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetBalance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\":\"8210583708\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{qa_url}}/v2/Signin",
+							"host": [
+								"{{qa_url}}"
+							],
+							"path": [
+								"v2",
+								"Signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerifyOtp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"9898989898\",\r\n    \"OTP\": \"123456\",\r\n    \"Token\": \"a2hLbnpXbnJFeUJObElIRlZXNUUrTGtCd3NHWWJtR0RiSkw0MkRCN2g0TStDZ3hVcldWQWtiS2ZNbEIwU2Z3OQ==\",\r\n    \"AppVersion\": \"123456\",\r\n    \"OsVersion\": \"Android\",\r\n    \"AdvertiseId\": \"ADVT12133434\",\r\n    \"LoginSource\": 1\r\n }"
+						},
+						"url": {
+							"raw": "{{base_url}}VerifyOtp",
+							"host": [
+								"{{base_url}}VerifyOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Mobile\":\"3535353535\",\"ReferralCode\":\"\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}Signup",
+							"host": [
+								"{{base_url}}Signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignupValidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Mobile\": \"5555551012\",\r\n    \"ReferralCode\": \"\",\r\n    \"OTP\": \"123456\",\r\n    \"Token\": \"L3lQdHNhdjBBZGR2VnRtYzFIcmEzeEQ2WFQraVJWYSs1QXhJdkgxeEd1eDBSRXgvOEJQMHM1MVhZUjVib2NBdg==\",\r\n    \"AppVersion\": \"2.6\",\r\n    \"OsVersion\": \"TestOs\",\r\n    \"AdvertiseId\": \"ADVT12133434\",\r\n    \"LoginSource\": 3,\r\n    \"LoginType\" : 0,\r\n    \"SourceId\": \"\",\r\n    \"AffiliateReferralCode\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/SignupValidate",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"SignupValidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResendOtp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Username\":\"9988776644\",\"Req\":\"0\",\"Token\":\"S2x2Y2xpRk5DR2V3LzRXOGxDaVdWaFpBZkNadjQwYjVvbmFtVkpUY1VvQjdMNjlSczJqbDlLMlEwc1VMWEwxdw==\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}ResendOtp",
+							"host": [
+								"{{site_url}}ResendOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}Logout",
+							"host": [
+								"{{site_url}}Logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmailResendOtp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Email\":\"deep221507@yopmail.com\",\"Token\":\"K3JKckVPdU8xTzVuaUw4SnJzMHdZS1M4QmhhVWpFYTNBODRlZFNQV3MwMVVIamdxRGIwb0dLa0czR1RGVHFlNmhucHZFdkNmMFFIUXZNMGphbXNWVmc9PQ==\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}EmailResendOtp",
+							"host": [
+								"{{site_url}}EmailResendOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerifyEmail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Email\":\"deep221507@yopmail.com\",\"OTP\":\"123456\",\"Token\":\"K3JKckVPdU8xTzVuaUw4SnJzMHdZS1M4QmhhVWpFYTNBODRlZFNQV3MwM00rZ2R1SklMQnBhRVZUWmlXeFhvSXZNazBTNG5jNFJsOXM0azZrRVNHUmc9PQ==\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}VerifyEmail",
+							"host": [
+								"{{site_url}}VerifyEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEmail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Email\":\"deep221507@yopmail.com\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}UpdateEmail",
+							"host": [
+								"{{site_url}}UpdateEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckAuthToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"AuthToken\" : \"92021759d05b98fa28b1ebe94564e432\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}CheckAuthToken",
+							"host": [
+								"{{site_url}}CheckAuthToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Validate Age and State",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "b6c2b14b60f503754f24a287f12c000e"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"DOB\": \"03/11/2022\",\n    \"StateID\": \"1613\"\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/ValidateAgeAndState",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"ValidateAgeAndState"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProfile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{site_url}}UpdateProfile",
+							"host": [
+								"{{site_url}}UpdateProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Mobile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "6626d1382e17185cfcd03d58202a80ca",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Mobile\": 8889998889\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/UpdateMobileNumber",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"UpdateMobileNumber"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v2/GetBalance",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerifyState",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"StateName\": \"Gujarat\",\n    \"Country\": \"IN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/VerifyState",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"VerifyState"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProfile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v2/GetProfile",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTaxForcast",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "fa0f780827e2a91a008b36cdaec03623",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v2/GetTaxForcast/500",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetTaxForcast",
+								"500"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trivia",
+			"item": [
+				{
+					"name": "GetTriviaList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Type\":\"2\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetTriviaList",
+							"host": [
+								"{{site_url}}GetTriviaList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveUserTrivia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"UserTriviaID\":\"2\",\"GameKey\":\"R05qeWxxdGhuUVRUQmM3bTAxc0RjV1lBT3Mvd1NteWZhckRBc0IwQWxwdz0=\",\"UserData\":[{\"QuestionID\":\"461\",\"Time\":\"6\",\"Answer\":\"Option1\"}]}"
+						},
+						"url": {
+							"raw": "{{site_url}}SaveUserTrivia",
+							"host": [
+								"{{site_url}}SaveUserTrivia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JoinTrivia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"5\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}JoinTrivia",
+							"host": [
+								"{{site_url}}JoinTrivia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TriviaDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"5\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}TriviaDetails",
+							"host": [
+								"{{site_url}}TriviaDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTriviaUsers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"5\",\"PageNo\":\"1\",\"Limit\":\"10\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetTriviaUsers",
+							"host": [
+								"{{site_url}}GetTriviaUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTriviaQuestion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"UserTriviaID\":\"1\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetTriviaQuestion",
+							"host": [
+								"{{site_url}}GetTriviaQuestion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserJoinedTrivia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Type\":\"1\",\"Status\":\"0\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetUserJoinedTrivia",
+							"host": [
+								"{{site_url}}GetUserJoinedTrivia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLiveTriviaQuestion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"UserTriviaID\":\"4\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetLiveTriviaQuestion",
+							"host": [
+								"{{site_url}}GetLiveTriviaQuestion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveUserLiveTrivia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"UserTriviaID\":\"4\",\"GameKey\":\"d3J2SXhoV0RURkNCR2ltd3FYTm90UmU2YzM3WlVkY3NjV2dTa25EeHRvdz0=\",\"UserData\":[{\"QuestionID\":\"2959\",\"Time\":\"6\",\"Answer\":\"Option3\"},{\"QuestionID\":\"466\",\"Time\":\"8\",\"Answer\":\"Option3\"},{\"QuestionID\":\"459\",\"Time\":\"10\",\"Answer\":\"Option1\"},{\"QuestionID\":\"2965\",\"Time\":\"5\",\"Answer\":\"Option4\"},{\"QuestionID\":\"2963\",\"Time\":\"7\",\"Answer\":\"Option1\"}]}"
+						},
+						"url": {
+							"raw": "{{site_url}}SaveUserLiveTrivia",
+							"host": [
+								"{{site_url}}SaveUserLiveTrivia"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Document",
+			"item": [
+				{
+					"name": "SaveBank",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "e5f7648370bb80f7f8ff295c3452ac91",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "Jay Swaminarayan",
+									"type": "text"
+								},
+								{
+									"key": "BankName",
+									"value": "BAPS",
+									"type": "text"
+								},
+								{
+									"key": "AccountNumber",
+									"value": "123456789012",
+									"type": "text"
+								},
+								{
+									"key": "IFSC",
+									"value": "UTIB0000032",
+									"type": "text"
+								},
+								{
+									"key": "FileName",
+									"type": "file",
+									"src": "/Users/nxgnsportsinteractivepl/Downloads/1109672.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/SaveBank",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"SaveBank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SavePan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "c0cb8f4f7ec1aa2030d3b43f34df0e14"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FileName",
+									"type": "file",
+									"src": "/Users/akashpatel/Desktop/KRISHNA_PAN.png"
+								},
+								{
+									"key": "Name",
+									"value": "KRISHNA BHOWMICK",
+									"type": "text"
+								},
+								{
+									"key": "PanNo",
+									"value": "AYTPB8437D",
+									"type": "text"
+								},
+								{
+									"key": "debug",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "DOB",
+									"value": "1986/04/19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{site_url}}SavePan",
+							"host": [
+								"{{site_url}}SavePan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetDocumentDetail",
+							"host": [
+								"{{site_url}}GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matches",
+			"item": [
+				{
+					"name": "GetMatchList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "7d4a1ee2d4331fd5b068730c5c1671bc",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"78210\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}v3/GetMatchList",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"GetMatchList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMatchInfo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameGroupID\":\"1\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetMatchInfo",
+							"host": [
+								"{{site_url}}GetMatchInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserMatches",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "ee22c007996b04066f01c3fb2b813b68",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"SportsID\":\"1\",\"MatchType\":2, \"GameCurrency\": \"\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetUserMatches",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetUserMatches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMatchPlayer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameGroupID\": \"4275\",\n    \"UserTeamID\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}v3/GetMatchPlayer",
+							"host": [
+								"{{base_url}}v3"
+							],
+							"path": [
+								"GetMatchPlayer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMatchLiveScore",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "5962efcda3c8a4bb5eefa2c4e892d8bc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"SportsID\":\"1\",\"GameGroupID\":\"5023\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}v2/GetMatchLiveScore",
+							"host": [
+								"{{base_url}}v2"
+							],
+							"path": [
+								"GetMatchLiveScore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "GetGameList",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "3b5d85ccfc1d14da8a04f782a3103427",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "4f4ece453926493ffc7b8ec58b5c1318",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "9a845816148f6e1092803c341277cd00",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "03c988cba4502af2b4607516ce4edee0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameCurrency\": \"Cash\",\n    \"GameGroupID\": \"6296\",\n    \"GameTypeID\": \"\",\n    \"Filters\": {\n        \"Entry\": [],\n        \"Team\": [],\n        \"Prize\": [],\n        \"Type\": []\n    },\n    \"PageNo\": \"\",\n    \"Limit\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetGameList",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetGameList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGameTeams",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameGroupID\": \"3820\", \"GameID\": null}"
+						},
+						"url": {
+							"raw": "{{base_url}}GetGameTeams",
+							"host": [
+								"{{base_url}}GetGameTeams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JoinGame",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "2520b543feb17fee2c8d111ea4c84c1f"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"UserTeamUID\": [\n        \"utEsfZDTmVcohQpuQaQYlTs\"\n    ],\n    \"GameID\": \"85671\",\n    \"JoinSimilar\": 0,\n    \"PromoCode\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v3/JoinGame",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"JoinGame"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GameDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "943542c0e13fb366c5b909ccf02e4eb6",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"86347\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GameDetails",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GameDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGameUsers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"60788\",\"PageNo\":\"1\",\"Limit\":\"10\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}GetGameUsers",
+							"host": [
+								"{{base_url}}GetGameUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserJoinedGame",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "a136054236c80ee1cf102f51de34f253",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "8ee0b8b74800d2980d9d3363f9a2b2fb",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameGroupID\":\"5414\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetUserJoinedGame",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetUserJoinedGame"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGameLeaderboard",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "a46679ac8d51ecd16de13a00143108a6",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameUID\": \"ghRvVKrfMoInmHivhkhvzQ\",\n    \"PageNo\": 1,\n    \"Limit\": 10,\n    \"UserUID\": \"58014b344f21\"\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetGameLeaderboard",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetGameLeaderboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetIotGamesList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetIotGamesList",
+							"host": [
+								"{{site_url}}GetIotGamesList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GeneratePrivateGame",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GameGroupID\": \"597\",\r\n    \"UserTeamID\": \"576\",\r\n    \"GameName\": \"Private Contest\",\r\n    \"MinEntry\": \"2\",\r\n    \"MaxEntry\": \"2\",\r\n    \"EntryFee\": \"55\",\r\n    \"TotalPrize\": \"100\",\r\n    \"MaxTeams\": \"2\",\r\n    \"Prize\": [\r\n        {\r\n            \"MinRank\": \"1\",\r\n            \"MaxRank\": \"1\",\r\n            \"Value\": \"100\",\r\n            \"MinPrize\": \"100\",\r\n            \"MaxPrize\": \"100\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}GeneratePrivateGame",
+							"host": [
+								"{{site_url}}GeneratePrivateGame"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ValidateGameCode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "65e169ee8efdb6c7911131035aac366c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameCode\":\"15E098BB91\", \"GameGroupID\": \"4897\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/ValidateGameCode",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"ValidateGameCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RawGameDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "e61a1acb66485f04c291444e1b744ef9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"60788\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v3/RawGameDetails",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"RawGameDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGameTypeGameList",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "e61a1acb66485f04c291444e1b744ef9",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "3b5d85ccfc1d14da8a04f782a3103427",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameGroupID\": \"5999\",\n    \"GameCurrency\": \"Cash\",\n    \"GameTypeID\": \"2\",\n    \"PageNo\":\"1\",\n    \"Limit\":\"13\",\n    \"Filters\": {\n        \"Type\": []\n    }\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}/v3/GetGameTypeGameList",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v3",
+								"GetGameTypeGameList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetComparisionUserTeams",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"User1\": 87,\n    \"User2\": 81,\n    \"GameID\": 75614\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetComparisionUserTeams",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetComparisionUserTeams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetComparisionUserTeamDetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "315205ededdc562242c440548823599e",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "7d49d4dabf81fd0b0478026b72677aef",
+								"description": "DEV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"UserTeam1\": \"9657\",\n    \"UserTeam2\": \"9656\",\n    \"GameID\": 76691\n}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetComparisionUserTeamDetail",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetComparisionUserTeamDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET NetworkGameDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameID\":\"79733\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v3/NetworkGameDetails",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"NetworkGameDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Promocode",
+			"item": [
+				{
+					"name": "JoinGameByGameCode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GameCode\": \"\",\r\n    \"UserTeamID\": \"578\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}JoinGameByGameCode",
+							"host": [
+								"{{site_url}}JoinGameByGameCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UsePromoCode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PromoCode\": \"33E14E88\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}UsePromoCode",
+							"host": [
+								"{{site_url}}UsePromoCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Promocode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PromoCode\": \"TWMAN201\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/ValidatePromoCode",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"ValidatePromoCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Promocodes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "315205ededdc562242c440548823599e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v2/GetPromoCodeList",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetPromoCodeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game PromoCodes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "315205ededdc562242c440548823599e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameID\": \"42840\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetGamePromoCodes",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetGamePromoCodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get GamePromoCodes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"GameGroupID\": 4060,\n    \"GameTemplateID\": 32\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/fantasy/v2/GetGamePromoCodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"fantasy",
+								"v2",
+								"GetGamePromoCodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Contest Promocode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PromoCode\": \"TESTPROMO\",\r\n    \"GameGroupID\": 4300,\r\n    \"GameTemplateID\":202\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/ValidateContestPromoCode",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"ValidateContestPromoCode"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banner",
+			"item": [
+				{
+					"name": "GetBannerList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "52809a360c43ccd2863a6f67f11199cd",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"SportsID\":\"2\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetBannerList",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetBannerList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "AppSetting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "c8f0f5565234ff7f9447a012a6750e73",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{qa_url}}/v2/AppSetting",
+							"host": [
+								"{{qa_url}}"
+							],
+							"path": [
+								"v2",
+								"AppSetting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendAppLink",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobileNumber\":\"9301448988\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}SendAppLink",
+							"host": [
+								"{{site_url}}SendAppLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPageDetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"PageKey\":\"Rules\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetPageDetail",
+							"host": [
+								"{{site_url}}GetPageDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCountryList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetCountryList",
+							"host": [
+								"{{site_url}}GetCountryList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStateList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"CountryID\":\"101\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetStateList",
+							"host": [
+								"{{site_url}}GetStateList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateState",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"StateID\":\"12\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}UpdateState",
+							"host": [
+								"{{site_url}}UpdateState"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveTicket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Email\":\"deep22@yopmail.com\",\"Subject\":\"Test Subject\",\"Description\":\"Test Description Message\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}SaveTicket",
+							"host": [
+								"{{site_url}}SaveTicket"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Referral",
+			"item": [
+				{
+					"name": "GetReferralUsers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"PageNo\":\"1\",\"Limit\":\"10\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetReferralUsers",
+							"host": [
+								"{{site_url}}GetReferralUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReferral",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetReferral",
+							"host": [
+								"{{site_url}}GetReferral"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "GetPendingWithdrawal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetPendingWithdrawal",
+							"host": [
+								"{{site_url}}GetPendingWithdrawal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTransaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "7250979e71e1dfbd0fb8c204ef4e6247"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"PageNo\":\"1\",\"Limit\":\"200\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetTransaction",
+							"host": [
+								"{{site_url}}GetTransaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Crypto Transaciton",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"PageNo\":\"1\",\"Limit\":\"100\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}GetCryptoTransaction",
+							"host": [
+								"{{site_url}}GetCryptoTransaction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crypto",
+			"item": [
+				{
+					"name": "GetCryptoBlockNumber",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{site_url}}GetCryptoBlockNumber",
+							"host": [
+								"{{site_url}}GetCryptoBlockNumber"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booster",
+			"item": [
+				{
+					"name": "GetBoosterList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetBoosterList",
+							"host": [
+								"{{site_url}}GetBoosterList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Team",
+			"item": [
+				{
+					"name": "GetTeamDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "315205ededdc562242c440548823599e",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "11d2cdd47e139ef6d182cf8aa48b2a66",
+								"description": "DEV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"UserTeamID\":\"9020\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetTeamDetails",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetTeamDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveTeam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "e376e08c35d769984e1aeb02c26e4a54",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"GameGroupID\":\"2937\",\"Team\":[\"153536\",\"153514\",\"153529\",\"153522\",\"153540\",\"153521\",\"153532\",\"153526\",\"153544\",\"153535\",\"153513\"],\"CID\":\"153536\",\"VCID\":\"153514\",\"UserTeamID\":\"5149\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}v2/SaveTeam",
+							"host": [
+								"{{base_url}}v2"
+							],
+							"path": [
+								"SaveTeam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRosterDetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"RosterID\":\"6130\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}getRosterDetail",
+							"host": [
+								"{{site_url}}getRosterDetail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "GetNotification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"page\":1,\n    \"limit\":100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}GetNotification",
+							"host": [
+								"{{base_url}}GetNotification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deposit Offer",
+			"item": [
+				{
+					"name": "GetDepositOffers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetDepositOffers",
+							"host": [
+								"{{site_url}}GetDepositOffers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scoring Rules",
+			"item": [
+				{
+					"name": "GetScoringRules",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"SportsID\":\"1\"}"
+						},
+						"url": {
+							"raw": "{{site_url}}GetScoringRules",
+							"host": [
+								"{{site_url}}GetScoringRules"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Real Game",
+			"item": [
+				{
+					"name": "RealGame",
+					"item": [
+						{
+							"name": "Get RealGame List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Token",
+										"value": "c8fbcd485cb49cdf937cc4274a80d138",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}v2/RealGames",
+									"host": [
+										"{{base_url}}v2"
+									],
+									"path": [
+										"RealGames"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get RealGame Detail",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}v2/RealGamesDetail/2",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"RealGamesDetail",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRON",
+					"item": [
+						{
+							"name": "Auto Publish RealGame Contests",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}realGameCron/AutoPublishRealGameContest/8",
+									"host": [
+										"{{site_url}}realGameCron"
+									],
+									"path": [
+										"AutoPublishRealGameContest",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Complete RealGame Contests",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}realgamecron/CompleteRealGameContest/1",
+									"host": [
+										"{{site_url}}realgamecron"
+									],
+									"path": [
+										"CompleteRealGameContest",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GenerateContestRank",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}realgamecron/GenerateContestRank/1",
+									"host": [
+										"{{site_url}}realgamecron"
+									],
+									"path": [
+										"GenerateContestRank",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contest Prize Distribution",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}realgamecron/ContestPrizeDistribution/1",
+									"host": [
+										"{{site_url}}realgamecron"
+									],
+									"path": [
+										"ContestPrizeDistribution",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RealGame Contest",
+					"item": [
+						{
+							"name": "End Game",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "050c804fa5eb12d100a0b4718753ac7a",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"GameType\":\"ludo\",\"Room\":\"356756\",\"ContestId\":\"102555\",\"Users\":[{\"UserUID\":\"Ngo1eV85f0389f\",\"Score\":\"100\"},{\"UserUID\":\"csz4ofH973826d\",\"Score\":\"30\"}]}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}v2/EndGame",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"EndGame"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contest List",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"RealGameId\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 20,\n    \"GameCurrency\": \"\",\n    \"ContestType\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}v2/RealGameContestList",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"RealGameContestList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contest Detail",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{site_url}}v2/RealGameContestDetail/35",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"RealGameContestDetail",
+										"35"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Contest Leaderboard",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"RealGameContestID\": \"1\",\n    \"PageNo\": 1,\n    \"Limit\": 500\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}v2/GetRealGameContestLeaderboard",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"GetRealGameContestLeaderboard"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Contest Template Detail",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Token",
+										"value": "{{Token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ContestTemplateID\": 5,\n    \"PageNo\":1,\n    \"Limit\":20,\n    \"GameCurrency\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{site_url}}v2/GetUserRealGameContestTemplateDetail",
+									"host": [
+										"{{site_url}}v2"
+									],
+									"path": [
+										"GetUserRealGameContestTemplateDetail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PostContestDistributionProcess",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}realgamecron/PostContestDistributionProcess/1",
+									"host": [
+										"{{site_url}}realgamecron"
+									],
+									"path": [
+										"PostContestDistributionProcess",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Real Game Join Game",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ContestId\": 369\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/RealGameContestJoin",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"RealGameContestJoin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contest History",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"RealGameId\": 1,\n    \"GameCurrency\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetRealGameContestHistory",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetRealGameContestHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Score",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "4fe188190481e7bd0f3a7453e8173b28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"RealGameId\": \"1\",\n    \"RealGameContestId\": \"1\",\n    \"Score\": \"10\",\n    \"AttemptID\": \"4\",\n    \"ScoreToken\": \"891e31bd7b0fb0ab8ee8b92857d0f896b7ea579f\" //Socre Token in  SHA1(<score>~<Token>~<AttemptID>)\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/SubmitScore",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"SubmitScore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get RealGameContestTemplateHistory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"RealGameId\": 1,\n    \"GameCurrency\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetRealGameContestTemplateHistory",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetRealGameContestTemplateHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RealGameRealTimeContestJoin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ContestTemplateID\": 36\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/RealGameRealTimeContestJoin",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"RealGameRealTimeContestJoin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Other",
+			"item": [
+				{
+					"name": "Textlocal Send SMS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.textlocal.in/send/?username=kush@nxgnsportsinteractive.com&hash=cf94e699583a83b05ddd99054674712db45856c8c3d6c5fab773f10896161c67&sender=NXGNTM&numbers=918905255799&message=Dear Twelfth Man,  017885 is your OTP to verify your account. This OTP will be valid for the next 2 mins.",
+							"protocol": "https",
+							"host": [
+								"api",
+								"textlocal",
+								"in"
+							],
+							"path": [
+								"send",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "kush@nxgnsportsinteractive.com"
+								},
+								{
+									"key": "hash",
+									"value": "cf94e699583a83b05ddd99054674712db45856c8c3d6c5fab773f10896161c67"
+								},
+								{
+									"key": "sender",
+									"value": "NXGNTM"
+								},
+								{
+									"key": "numbers",
+									"value": "918905255799"
+								},
+								{
+									"key": "message",
+									"value": "Dear Twelfth Man,  017885 is your OTP to verify your account. This OTP will be valid for the next 2 mins."
+								},
+								{
+									"key": "hash",
+									"value": "1107166504344367469",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Global Leader Board",
+			"item": [
+				{
+					"name": "Get Leaderboard Prize Distribution Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "a46679ac8d51ecd16de13a00143108a6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderboardId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetCompetitionLeaderBoardPrize",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetCompetitionLeaderBoardPrize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Competition",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "a46679ac8d51ecd16de13a00143108a6",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v2/GetCompetition",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetCompetition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leaderboard Statistics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "373e8ef24802bc5220645ba2ead48cd6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"PageNo\": 1,\n    \"Limit\": 10,\n    \"LeaderboardId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetLeaderboardOverallStatistics",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetLeaderboardOverallStatistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leaderboard Detail Statistics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "a46679ac8d51ecd16de13a00143108a6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LosId\": 3,\n    \"UserId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetLeaderboardDetailedStatistics",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetLeaderboardDetailedStatistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Competition List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SportsID\": 2,\n    \"Status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetCompetitionList",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetCompetitionList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Competition Info",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SportsID\": 2,\n    \"Status\": 1,\n    \"LeagueId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetCompetitionInfo",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetCompetitionInfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AppFlyerS2S",
+			"item": [
+				{
+					"name": "S2S api",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authentication",
+								"value": "QNxcVQoKyFdoE96hfBgnFn",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"appsflyer_id\": \"1672900545689-8928204810446822020\",\n \"advertising_id\": \"4ac312c3-1ce1-4803-908a-938c52390694\",\n \"customer_user_id\" : \"example_customer_id_123\",\n \"ip\": \"199.0.2.1\",\n \"app_version_name\" : \"example_version_name\",\n \"eventTime\" : \"2020-02-25 12:00.000\",\n \"eventName\": \"af_purchase\",\n \"eventCurrency\": \"ZAR\",\n\"os\" : \"14.6\",\n\"att\" : 3,\n\"eventValue\": \n{\n\"af_revenue\": \"1006\",\n\"af_content_type\": \"wallets\",\n\"af_content_id\": \"15854\",\n\"af_quantity\" :\"1\"\n}\n}"
+						},
+						"url": {
+							"raw": "https://api2.appsflyer.com/inappevent/com.twelfthman.android",
+							"protocol": "https",
+							"host": [
+								"api2",
+								"appsflyer",
+								"com"
+							],
+							"path": [
+								"inappevent",
+								"com.twelfthman.android"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Referral Leaderboard",
+			"item": [
+				{
+					"name": "GetReferralLeaderBoardList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Status\": 0,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{framework}}v3/GetReferralLeaderboardList",
+							"host": [
+								"{{framework}}v3"
+							],
+							"path": [
+								"GetReferralLeaderboardList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReferralLeaderBoardDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "6aa66605b66186062105c606e0e0bdd4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderBoardId\": \"6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{framework}}/v3/GetReferralLeaderboardDetail",
+							"host": [
+								"{{framework}}"
+							],
+							"path": [
+								"v3",
+								"GetReferralLeaderboardDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReferralLeaderboardStatistics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "6aa66605b66186062105c606e0e0bdd4"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 9434b9032302dceea9a378d56c167443",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderBoardId\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}"
+						},
+						"url": {
+							"raw": "{{framework}}v3/GetReferralLeaderboardStatistics",
+							"host": [
+								"{{framework}}v3"
+							],
+							"path": [
+								"GetReferralLeaderboardStatistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReferralLeaderboardStatisticDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"RlsId\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{framework}}v3/GetReferralLeaderboardStatisticDetails",
+							"host": [
+								"{{framework}}v3"
+							],
+							"path": [
+								"GetReferralLeaderboardStatisticDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateReferralLeaderboard/65137",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"test\":\"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{framework}}v3/UpdateReferralLeaderboardReal/12393/2",
+							"host": [
+								"{{framework}}v3"
+							],
+							"path": [
+								"UpdateReferralLeaderboardReal",
+								"12393",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "v3/ReferralLeaderboardPrizeDistribution/0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "97492e03a14f3b0bf5c7bf6c1c8b850e"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 9434b9032302dceea9a378d56c167443",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"test\":\"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/framework/v3/ReferralLeaderboardPrizeDistribution/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"framework",
+								"v3",
+								"ReferralLeaderboardPrizeDistribution",
+								"0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participation Leaderboard",
+			"item": [
+				{
+					"name": "GetParticipationLeaderBoardList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "6b84feb100a9f2949f428437c55ba35d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SportsID\": 1,\n    \"Status\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetParticipationLeaderBoardList",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetParticipationLeaderBoardList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetParticipationLeaderBoardRank",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "e05c5052d61f6ef8054b89c9f105239c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Id\": 17,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetParticipationLeaderBoardRank",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetParticipationLeaderBoardRank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetParticipationLeaderBoardMatchList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "bb2b161051801e4c93d799111066809d",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "1bd20524d6666dc7caa66b6c4a2e3164",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Id\": 39,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetParticipationLeaderBoardMatchList",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetParticipationLeaderBoardMatchList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetParticipationLeaderBoardPrizeList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "63610dc4e283decd4b3a76b5b92eb93f",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id",
+									"value": "17",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{site_url}}/v2/GetParticipationLeaderBoardPrizeList",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"GetParticipationLeaderBoardPrizeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateParticipationLeagueLeaderboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "74b0d7edb9cec5ee804b7e53fbbd645a",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}/v2/UpdateParticipationLeaderboard/1",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"UpdateParticipationLeaderboard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LeagueParticipationLeaderboardPrizeDistribution",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}/v2/LeagueParticipationLeaderboardPrizeDistribution/1",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v2",
+								"LeagueParticipationLeaderboardPrizeDistribution",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Depositor Leaderboard",
+			"item": [
+				{
+					"name": "GetDepositorLeaderBoardList",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "262c6dd781ec3d22604f39b9a5161070",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Status\": 0,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{framework}}v3/GetDepositorLeaderboardList",
+							"host": [
+								"{{framework}}v3"
+							],
+							"path": [
+								"GetDepositorLeaderboardList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDepositorLeaderBoardDetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "8a2f77c7f977b5d3ebda47cfb7a790a2",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderBoardId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v3/GetDepositorLeaderboardDetail",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v3",
+								"GetDepositorLeaderboardDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDepositorLeaderBoardStatistics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "b38595830d4135bf9b948130212e43d6",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderBoardId\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v3/GetDepositorLeaderboardStatistics",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v3",
+								"GetDepositorLeaderboardStatistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDepositorLeaderBoardStatisticDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "f67cc39e08749e5d580ac71aa91d6148",
+								"type": "text"
+							},
+							{
+								"key": "Token",
+								"value": "{{Token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"LeaderBoardId\": 1,\n    \"PageNo\": 1,\n    \"Limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}/v3/GetDepositorLeaderBoardStatisticDetails",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"v3",
+								"GetDepositorLeaderBoardStatisticDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "S2S Calls",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}s2s/GetBalance",
+							"host": [
+								"{{site_url}}s2s"
+							],
+							"path": [
+								"GetBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Network Webhook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"matchUID\": \"63971\",\n  \"gameGroupID\": \"6766\",\n  \"gameID\": \"79738\",\n  \"type\": \"GAME_PUBLISHED\",\n  \"timestamp\": \"2023-06-29 05:51:41\",\n  \"sToken\": \"02b358e0a6af27b5a3261fba0634a82c4b4718a4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}Webhook/network",
+							"host": [
+								"{{site_url}}Webhook"
+							],
+							"path": [
+								"network"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sync Join Contest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"UserUID\": \"19222e54a501\",\n    \"Username\": \"test111\",\n    \"ConstestUID\": \"gdPztYfIALtajXhqEMPJQl\",\n    \"Team\": [\n        \"319\",\n        \"62778\",\n        \"93570\",\n        \"93418\",\n        \"45172\",\n        \"1150\",\n        \"37360\",\n        \"1018\",\n        \"63752\",\n        \"348\",\n        \"63743\"\n    ],\n    \"CID\": \"93570\",\n    \"VCID\": \"348\",\n    \"UserTeamUID\": \"utmHzxNpkptZXbZrtvySNGz\",\n    \"TeamName\": \"T1\",\n    \"timestamp\": \"2023-07-14 11:19:14\",\n    \"sToken\": \"484083cc3ac11a3f33973dc1e44288537d20e7c3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v3/JoinContest",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"JoinContest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserTeam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Team\":[\"54040\", \"122925\", \"109173\", \"127905\", \"109250\", \"124205\", \"127906\", \"54039\", \"93862\", \"117562\", \"127900\"],\n    \"VCID\":\"122925\",\n    \"CID\":\"54040\",\n    \"UserTeamUID\": \"utnEjrBKawJfoMiJekWzoxV\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v3/UpdateUserTeam",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"UpdateUserTeam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DistributionList",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "1fac01ae8438933d52bebeb7e0fd5865788bea2b",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{site_url}}v3/DistributionList/ghRvVKrfMoInmHivhkhvzQ",
+							"host": [
+								"{{site_url}}v3"
+							],
+							"path": [
+								"DistributionList",
+								"ghRvVKrfMoInmHivhkhvzQ"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tamasha API",
+			"item": [
+				{
+					"name": "Confirm Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "10",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GameId\" : \"8\",\n  \"PartnerUserId\" :\"58014b344f21\",\n  \"PartnerUserAuthToken\" : \"69c9e5d3689edc924ded46c72dba2a5a\",\n  \"EntryFee\" : \"50\",\n  \"BonusPercentage\" : \"10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v1/webhook/confirm-balance",
+							"host": [
+								"{{site_url}}v1"
+							],
+							"path": [
+								"webhook",
+								"confirm-balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Debit Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "10",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GameId\" : \"8\",\n  \"PartnerUserId\" :\"58014b344f21\",\n  \"PartnerUserAuthToken\" : \"69c9e5d3689edc924ded46c72dba2a5a\",\n  \"EntryFee\" : \"50\",\n  \"BonusPercentage\" : \"0\",\n  \"TransactionId\" : \"5\",\n  \"PartnerCustomParams\" : {\n     \"ContestId\" : \"12345\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v1/webhook/debit",
+							"host": [
+								"{{site_url}}v1"
+							],
+							"path": [
+								"webhook",
+								"debit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Settlement Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "gpt_test_iwtGld99i7Kv2N14laUu4GYyEcfugu",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GameId\": \"8\",\n  \"PartnerUserId\": \"58014b344f21\",\n  \"Refund\": true,\n  \"ReferenceTransactionId\": \"sdklf34534\",\n  \"Amount\": \"50\",\n  \"Rake\": \"0\",\n  \"PartnerCustomParams\": {\n    \"ContestId\": \"12345 \",\n    \"RoomId\": \"\",\n    \"IsTournament\": true,\n    \"AmountOwed\": \"10\",\n    \"Type\": 1,\n    \"OwnScore\": \"0\",\n    \"OpponentScore\": \"300\",\n    \"ScoreInfo\": {\n      \"ActualScore\": \"295\",\n      \"GameEndReason\": \"OnLifeEnd\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v1/webhook/settlement",
+							"host": [
+								"{{site_url}}v1"
+							],
+							"path": [
+								"webhook",
+								"settlement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tamasha URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "69c9e5d3689edc924ded46c72dba2a5a",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GameId\": \"8\",\n  \"PartnerUserId\": \"singh321asd-ss\",\n  \"PartnerUserName\": \"singhsantosh-ss\",\n  \"PartnerUserAuthToken\": \"xyz\",\n  \"PartnerCustomParams\": {\n    \"Lat\": 32123.651561,\n    \"Long\": 8892.1651,\n    \"DeviceID\": \"18911\",\n    \"WorkSpaceId\": \"39\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{site_url}}v2/GetTamashaURL",
+							"host": [
+								"{{site_url}}v2"
+							],
+							"path": [
+								"GetTamashaURL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "9434b9032302dceea9a378d56c167443",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Token",
+			"value": "dfc2741d45a08b40f1fae105f9514294",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "cashfree_app_id",
+			"value": "92863b3aadb875b362df511a6829",
+			"type": "string"
+		},
+		{
+			"key": "cashfree_secret_key",
+			"value": "6341e2806bd57d592fed57275f07385f8c32e56e",
+			"type": "string"
+		}
+	]
+}
