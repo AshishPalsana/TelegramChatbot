@@ -438,91 +438,6 @@ def update_user_sport(username, selected_sport_id):
         json.dump(data, file, indent=4)
 
 
-def upcoming_match_manu(update: Update, context: CallbackContext) -> int:
-    phone_number = context.user_data.get("phone")
-    stored_sport_id = None
-    if phone_number:
-        if os.path.exists(JSON_FILE_PATH):
-            with open(JSON_FILE_PATH, 'r') as file:
-                try:
-                    json_data = json.load(file)
-                    stored_sport_id = json_data.get(phone_number, {}).get('sports_id')
-                except json.JSONDecodeError as e:
-                    print("JSON decoding error:", str(e))
-
-    print("stored_sport_id==>", stored_sport_id)
-
-    api_response = GetMatcList(stored_sport_id, context)
-
-    if api_response:
-        Tournament = api_response.get('data', [])
-
-        keyboard = []
-        for game in Tournament:
-            if game['GameGroupID'] != "":
-                keyboard.append([InlineKeyboardButton(
-                    f"{game['TournamentName']} - {game['MaxPrize']}", callback_data=f"game_{game['GameGroupID']}")])
-        phone_number = context.user_data["phone"]
-
-        keyboard_columns = [keyboard[i:i + 2]
-                            for i in range(0, len(keyboard), 2)]
-        reply_markup = InlineKeyboardMarkup(keyboard)
-
-        if update.message and update.message.reply_text:
-            update.message.reply_text(
-                'Please select a game:', reply_markup=reply_markup)
-        else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id,
-                text='Please select a game:',
-                reply_markup=reply_markup
-            )
-
-        if api_response['code'] == 200:
-            pass
-        else:
-            error_message = extract_error_message(api_response)
-            print("==>>", error_message)
-            if update.message:
-                update.message.reply_text(error_message)
-            else:
-                # If update.message is None, use context.bot.send_message
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=error_message)
-                return ConversationHandler.END
-    else:
-        # Handle the case where api_response is None
-        print("Error: api_response is None")
-
-    # return DISPLAY_MATCHES
-    # return UPCOMING_MATCH_MENU
-
-def upcoming_match_manu_hendler(update: Update, context: CallbackContext):
-    query = update.callback_query
-    selected_option = query.data
-    print("DDDD",selected_option)
-    # api call
-    with open("team.json", 'r') as file:
-        data1 = json.load(file)
-
-    # dump team in temp-json
-    with open("temp-team.json", 'r') as file:
-        data = json.load(file)
-        data["2345678912-71966"] = data1["data"]
-    with open("temp-team.json", 'w') as file:
-        json.dump(data, file, indent=4)
-
-    options = [f"{player['RosterName']} {player['Position']} {player['Credit']}" for player in
-               data1["data"]["RosterList"]]
-    # options = ["Option 1", "Option 2", "Option 3"]
-    # Create InlineKeyboardButtons with checkable options
-    buttons = [
-        InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option)
-        for option in options
-    ]
-    reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
-    update.callback_query.message.reply_text("Select your team", reply_markup=reply_markup)
-    return SELECT_PLAYER_HANDLER
 
 def main_menu(update, context):
     menu_buttons = [
@@ -599,84 +514,144 @@ def main_manu_hendler(update: Update, context: CallbackContext) -> int:
         pass
 
 
+def upcoming_match_manu(update: Update, context: CallbackContext) -> int:
+    phone_number = context.user_data.get("phone")
+    stored_sport_id = None
+    if phone_number:
+        if os.path.exists(JSON_FILE_PATH):
+            with open(JSON_FILE_PATH, 'r') as file:
+                try:
+                    json_data = json.load(file)
+                    stored_sport_id = json_data.get(phone_number, {}).get('sports_id')
+                except json.JSONDecodeError as e:
+                    print("JSON decoding error:", str(e))
 
-def unknown_command(update, context):
-    command = update.message.text
-    user_id = update.message.from_user.id
+    print("stored_sport_id==>", stored_sport_id)
 
-    if command in ["/Login", "/Register"]:
-        logger.error(f"Error: {context.error}")
-        update.message.reply_text("You are already LoggedIn")
+    api_response = GetMatcList(stored_sport_id, context)
 
-        keyboard = [[InlineKeyboardButton(
-            "Show Sport Menu", callback_data='show_sport_menu')]]
-        return button_click(update, context)
+    if api_response:
+        Tournament = api_response.get('data', [])
+
+        keyboard = []
+        for game in Tournament:
+            if game['GameGroupID'] != "":
+                keyboard.append([InlineKeyboardButton(
+                    f"{game['TournamentName']} - {game['MaxPrize']}", callback_data=f"{game['GameGroupID']}")])
+        phone_number = context.user_data["phone"]
+
+        keyboard_columns = [keyboard[i:i + 2]
+                            for i in range(0, len(keyboard), 2)]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        if update.message and update.message.reply_text:
+            update.message.reply_text(
+                'Please select a game:', reply_markup=reply_markup)
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text='Please select a game:',
+                reply_markup=reply_markup
+            )
+
+        if api_response['code'] == 200:
+            pass
+        else:
+            error_message = extract_error_message(api_response)
+            print("==>>", error_message)
+            if update.message:
+                update.message.reply_text(error_message)
+            else:
+                # If update.message is None, use context.bot.send_message
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=error_message)
+                return ConversationHandler.END
+    else:
+        # Handle the case where api_response is None
+        print("Error: api_response is None")
+
+
+'''currently we are redirecting user to create team'''
+def upcoming_match_manu_hendler(update: Update, context: CallbackContext):
+    query = update.callback_query
+    selected_option = query.data
+    create_team(update,context)
+
+def create_team(update: Update, context: CallbackContext):
+    query = update.callback_query
+    selected_option = query.data
+    phone = context.user_data["phone"]
+    print("DDDD selected match", selected_option)
+    # api call
+    url = 'https://fantasy-ci-dev.twelfthman.io/api/v2/GetMatchPlayer'
+    payload = {
+    "GameGroupID": selected_option,
+    "UserTeamID": ""
+    }
+    headers = {
+        'Content-Type': 'application/json',
+        'Token': context.user_data['auth_token']
+    }
+    res = requests.post(url,json=payload,headers=headers)
+    response_data = res.json()
+    # print(response_data)
+    if res.status_code == 200:
+        # with open("team.json", 'r') as file:
+        #     data1 = json.load(file)
+        phone_number = context.user_data["phone"]
+        id = phone_number+"_"+selected_option
+        # dump team in temp-json
+
+        with open("user_data.json", 'r') as file:
+            users = json.load(file)
+        users[phone]["selected_game"]["GameGroupID"] = selected_option
+        with open("user_data.json", 'w') as file:
+            json.dump(users, file, indent=4)
+
+        with open("temp-team.json", 'r') as file:
+            data = json.load(file)
+            data[id] = response_data["data"]
+            for i in response_data["data"]["Position"]:
+                pos = i["Position"]
+                data[id][pos] = i
+                data[id][pos]["selected"]=0
+                data[id][pos]["total_credits"]=0.0
+
+        with open("temp-team.json", 'w') as file:
+            json.dump(data, file, indent=4)
+
+        options = [f"{player['RosterName']} {player['Position']} {player['Credit']}" for player in
+                   data[id]["RosterList"]]
+        # options = ["Option 1", "Option 2", "Option 3"]
+        # Create InlineKeyboardButtons with checkable options
+        buttons = [
+            InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option+"_"+selected_option)
+            for option in options
+        ]
+        reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
+        update.callback_query.message.reply_text("Select your team", reply_markup=reply_markup)
+        return SELECT_PLAYER_HANDLER
 
     else:
-        logger.error(f"Error: {context.error}")
-        update.message.reply_text("Sorry, I don't understand that command.")
-
-
-# def button_click(update, context):
-#     return sports_list(update, context)
-
-
-def extract_error_message(response_data):
-    if 'message' in response_data:
-        if isinstance(response_data['message'], dict):
-            return next(iter(response_data['message'].values()), '')
-        return response_data['message']
-    return response_data.get('message', 'Unknown error')
-
-# create team
-
-def create_team(update: Update, context: CallbackContext) -> None:
-    # api call
-    with open("team.json", 'r') as file:
-        data1 = json.load(file)
-
-    # dump team in temp-json
-    with open("temp-team.json", 'r') as file:
-        data = json.load(file)
-        data["2345678912-71966"] = data1["data"]
-    with open("temp-team.json", 'w') as file:
-        json.dump(data, file, indent=4)
-
-    options = [f"{player['RosterName']} {player['Position']} {player['Credit']}" for player in
-               data1["data"]["RosterList"]]
-    # options = ["Option 1", "Option 2", "Option 3"]
-    # Create InlineKeyboardButtons with checkable options
-    buttons = [
-        InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option)
-        for option in options
-    ]
-    reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
-    update.message.reply_text("Select your team", reply_markup=reply_markup)
-    return SELECT_PLAYER_HANDLER
-
-
-# Helper function to build the menu
-def build_menu(buttons, n_cols, header_buttons=None, footer_buttons=None):
-    menu = [buttons[i:i + n_cols] for i in range(0, len(buttons), n_cols)]
-    if header_buttons:
-        menu.insert(0, header_buttons)
-    if footer_buttons:
-        menu.append(footer_buttons)
-    return menu
-
+        update.callback_query.message.reply_text(response_data["message"])
 
 # Function to handle button presses
 def select_player_handler(update, context):
-    with open("temp-team.json", 'r') as file:
-        team = json.load(file)
-    data = team["2345678912-71966"]
-
-    options = [f"{player['RosterName']} {player['Position']} {player['Credit']}" for player in
-               data["RosterList"]]
-    positions = data["Position"]
     query = update.callback_query
     selected_option = query.data
-    print("DDD", selected_option)
+    selected_player = selected_option.split("_")[0]
+    game_id = selected_option.split("_")[1]
+    print(selected_player,game_id)
+    phone = context.user_data["phone"]
+
+    temp_team_id = phone+"_"+game_id
+
+    with open("temp-team.json", 'r') as file:
+        team = json.load(file)
+
+    options = [f"{player['RosterName']} {player['Position']} {player['Credit']}" for player in
+               team[temp_team_id]["RosterList"]]
+    positions = team[temp_team_id]["Position"]
 
     # submit button clicked
     if selected_option == "Submit":
@@ -689,77 +664,36 @@ def select_player_handler(update, context):
                     team += "\n" + option
             except:
                 pass
-        print(team)
-        print()
-        # update.message.reply_text("team created")
-        # if update.message:
-        #     update.message.reply_text("team created")
-        # elif update.callback_query:
         update.callback_query.message.reply_text(f"confirm the team : {team}")
         return
 
-    # print("DDD selected",selected_option.split()[-2])
-    req_position = selected_option.split()[-2]
-
-    # Toggle the selection status for the chosen option
-    if context.user_data.get(selected_option):
-        del context.user_data[selected_option]
+    # toggle the tickmark
+    if context.user_data.get(selected_player):
+        del context.user_data[selected_player]
     else:
-        context.user_data[selected_option] = True
+        context.user_data[selected_player] = True
 
-    total_credits, wk, bow, bat, ar = 0, 0, 0, 0, 0
+    #get selected player position
+    pos = selected_player.split()[-2]
+    try:
+        for option in options:
+            if context.user_data.get(option):
+                if option.split()[-2]==pos:
+                    team[temp_team_id][pos]["selected"]+=1
+                    team[temp_team_id]["total_playes"]+=1
+                    team[temp_team_id]["total_credits"]+=float(option.split()[-1])
 
-    for option in options:
-        if context.user_data.get(option):
-            total_credits += float(option.split()[-1])
-            # for pos in positions:
-            #     if pos["Position"] == option.split()[-2]:
-            #         try:
-            #             data["Position"]["selected"] += 1
-            #         except:
-            #             pos["selected"] = 1
+        selected = team[temp_team_id][pos]["selected"]
+        if selected > team[temp_team_id][pos]["MaxPlayer"]:
+            query.answer(f'Max {team[temp_team_id][pos]["MaxPlayer"]} players allowed for {pos}')
+            del context.user_data[selected_player]
+    except:
+        pass
 
-            # wk
-            if option.split()[-2] == "WK":
-                wk += 1
-            if option.split()[-2] == "BOW":
-                bow += 1
-            if option.split()[-2] == "BAT":
-                bat += 1
-            if option.split()[-2] == "AR":
-                ar += 1
-    total_players = wk + bow + bat + ar
-    print(total_credits, wk, bow, bat, ar, total_players)
-    if total_credits > 100:
-        # If Option 1 is selected, send a warning message (toast)
-        query.answer("Max credits")
-        del context.user_data[selected_option]
-        # return
-    if total_players > 11:
-        # If Option 1 is selected, send a warning message (toast)
-        query.answer("Max players")
-        del context.user_data[selected_option]
-        # return
-
-    # Update the message with the new selection status
-    # Create InlineKeyboardButtons with checkable options
     buttons = [
-        InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option)
-        for option in options
-    ]
-
-    if total_players == 11:
-        if wk < 1:
-            query.answer("select at least 1 wk")
-        if bow < 1:
-            query.answer("select at least 1 bow")
-        if bat < 1:
-            query.answer("select at least 1 bat")
-        if ar < 1:
-            query.answer("select at least 1 ar")
-
-        print("team is ready")
-        buttons.append(InlineKeyboardButton('Submit', callback_data="Submit"))
+            InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option+"_"+game_id)
+            for option in options
+        ]
 
     reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
 
@@ -778,7 +712,128 @@ def select_player_handler(update, context):
             )
         except:
             pass
+    # print("DDD selected",selected_option.split()[-2])
+    # req_position = selected_option.split()[-2]
 
+    # Toggle the selection status for the chosen option
+    # if context.user_data.get(selected_option):
+    #     del context.user_data[selected_option]
+    # else:
+    #     context.user_data[selected_option] = True
+
+    # total_credits, wk, bow, bat, ar = 0, 0, 0, 0, 0
+    total_credits = 0
+
+    # for option in options:
+    #     if context.user_data.get(option):
+    #         total_credits += float(option.split()[-1])
+    #         # for pos in positions:
+    #         #     if pos["Position"] == option.split()[-2]:
+    #         #         try:
+    #         #             data["Position"]["selected"] += 1
+    #         #         except:
+    #         #             pos["selected"] = 1
+    #         ind = next((item for item in team[id]["Position"] if item["Position"] == option.split()[-2]), None)
+    #         print("DDD",ind)
+            # # wk
+            # if option.split()[-2] == "WK":
+            #     try
+            #     team[id][option.split()[-2]] += 1
+            # if option.split()[-2] == "BOW":
+            #     bow += 1
+            # if option.split()[-2] == "BAT":
+            #     bat += 1
+            # if option.split()[-2] == "AR":
+            #     ar += 1
+    # total_players = wk + bow + bat + ar
+    # print(total_credits, wk, bow, bat, ar, total_players)
+    # if total_credits > 100:
+    #     # If Option 1 is selected, send a warning message (toast)
+    #     query.answer("Max credits")
+    #     del context.user_data[selected_option]
+    #     # return
+    # if total_players > 11:
+    #     # If Option 1 is selected, send a warning message (toast)
+    #     query.answer("Max players")
+    #     del context.user_data[selected_option]
+    #     # return
+    #
+    # # Update the message with the new selection status
+    # # Create InlineKeyboardButtons with checkable options
+    # buttons = [
+    #     InlineKeyboardButton(f"{'☑️' if context.user_data.get(option) else '☐'} {option}", callback_data=option)
+    #     for option in options
+    # ]
+    #
+    # if total_players == 11:
+    #     if wk < 1:
+    #         query.answer("select at least 1 wk")
+    #     if bow < 1:
+    #         query.answer("select at least 1 bow")
+    #     if bat < 1:
+    #         query.answer("select at least 1 bat")
+    #     if ar < 1:
+    #         query.answer("select at least 1 ar")
+    #
+    #     print("team is ready")
+    #     buttons.append(InlineKeyboardButton('Submit', callback_data="Submit"))
+    #
+    # reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
+    #
+    # if update.message:
+    #     context.user_data['message_id'] = update.message.reply_text(
+    #         "Choose your Team", reply_markup=reply_markup
+    #     ).message_id
+    # elif update.callback_query:
+    #     try:
+    #         query = update.callback_query
+    #         context.bot.edit_message_text(
+    #             chat_id=query.message.chat_id,
+    #             message_id=query.message.message_id,
+    #             text="Select your team",
+    #             reply_markup=reply_markup
+    #         )
+    #     except:
+    #         pass
+
+
+
+def unknown_command(update, context):
+    command = update.message.text
+    user_id = update.message.from_user.id
+
+    if command in ["/Login", "/Register"]:
+        logger.error(f"Error: {context.error}")
+        update.message.reply_text("You are already LoggedIn")
+
+        keyboard = [[InlineKeyboardButton(
+            "Show Sport Menu", callback_data='show_sport_menu')]]
+        return button_click(update, context)
+
+    else:
+        logger.error(f"Error: {context.error}")
+        update.message.reply_text("Sorry, I don't understand that command.")
+
+
+def button_click(update, context):
+    return sports_list(update, context)
+
+
+def extract_error_message(response_data):
+    if 'message' in response_data:
+        if isinstance(response_data['message'], dict):
+            return next(iter(response_data['message'].values()), '')
+        return response_data['message']
+    return response_data.get('message', 'Unknown error')
+
+# Helper function to build the menu
+def build_menu(buttons, n_cols, header_buttons=None, footer_buttons=None):
+    menu = [buttons[i:i + n_cols] for i in range(0, len(buttons), n_cols)]
+    if header_buttons:
+        menu.insert(0, header_buttons)
+    if footer_buttons:
+        menu.append(footer_buttons)
+    return menu
 
 
 
@@ -803,9 +858,7 @@ def main() -> None:
             SELECT_SPORT: [CallbackQueryHandler(select_sport)],
             MAIN_MENU: [CallbackQueryHandler(main_manu_hendler)],
             UPCOMING_MATCH_MENU: [CallbackQueryHandler(upcoming_match_manu_hendler)],
-            CREATE_TEAM: [CallbackQueryHandler(create_team)],
             SELECT_PLAYER_HANDLER: [CallbackQueryHandler(select_player_handler)]
-
         },
         fallbacks=[],
     )
