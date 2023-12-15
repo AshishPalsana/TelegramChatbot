@@ -48,5 +48,36 @@
         "Bonus": "0.00",
         "RealCash": "0.00",
         "Coin": "0"
+    },
+    "1234567890": {
+        "sports_id": "1",
+        "selected_game": {
+            "GameGroupID": "create_12722",
+            "tournament_name": "ECS Spain T10",
+            "max_prize": "50000.00",
+            "ScheduleDate": "2023-12-14 11:45:00",
+            "ScheduleDateOriginal": "2023-12-14 11:45:00"
+        }
+    },
+    "9537206522": {
+        "sports_id": "1",
+        "selected_game": {
+            "MatchUID": "71894",
+            "GameGroupID": "create_12706",
+            "tournament_name": "Sharjah Hundred League",
+            "max_prize": "50000.00",
+            "ScheduleDate": "2023-12-16 17:45:00",
+            "ScheduleDateOriginal": "2023-12-16 17:45:00"
+        }
+    },
+    "9427712949": {
+        "sports_id": "1",
+        "selected_game": {
+            "GameGroupID": "create_12700",
+            "tournament_name": "Nature Isle T10",
+            "max_prize": "50000.00",
+            "ScheduleDate": "2023-12-13 16:00:00",
+            "ScheduleDateOriginal": "2023-12-13 16:00:00"
+        }
     }
 }

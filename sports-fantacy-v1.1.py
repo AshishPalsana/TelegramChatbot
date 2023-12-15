@@ -697,6 +697,9 @@ def select_player_handler(update, context):
 
     reply_markup = InlineKeyboardMarkup(build_menu(buttons, n_cols=1))
 
+    with open("temp-team.json", 'w') as file:
+        json.dump(team, file, indent=4)
+
     if update.message:
         context.user_data['message_id'] = update.message.reply_text(
             "Choose your Team", reply_markup=reply_markup
