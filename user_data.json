@@ -1,83 +1,33 @@
 {
-    "2345678912": {
-        "app_user": "uSZKdyCGsPzPtbfCPXhCQo",
-        "app_username": "Itxx912",
-        "phone": "2345678912",
-        "token": "QTBMTW9tYk1qU2JBU1JUVTh3YmNndVorYzRMdldNZFZuVFhZMW5VM3o2UHB4TERqVWZSSVMwdkJVcHFsVnFsTw==",
-        "auth_token": "7cb697f55d5f4714bba13b36efc0db95",
-        "Crypto": "0.00",
-        "Winning": "0.00",
-        "Bonus": "0.00",
-        "RealCash": "0.00",
-        "Coin": "0",
-        "sports_id": "3"
-    },
-    "7788989098": {
-        "app_user": "uetfuXFaddJubquJeCcQaq",
-        "app_username": "Gcde098",
-        "phone": "7788989098",
-        "token": "aTMwQzhxOGVqVXd2R1U2VitnWk9ob0hDOHlOVnlSUUhBdVMrOTdkc1pSTmxRZXZub1dDWlM3QVFpZmJmMmZaeQ==",
-        "auth_token": "03e2b4bf65863db97d41a5e8cd27d6c3",
-        "Crypto": "0.00",
-        "Winning": "0.00",
-        "Bonus": "0.00",
-        "RealCash": "0.00",
-        "Coin": "0"
-    },
-    "9106915347": {
-        "app_user": "uoPtktRUAQjFhaYCkLxGwd",
-        "app_username": "Ypux347",
-        "phone": "9106915347",
-        "token": "Q1FSSzA0dktOd2dCRmllbGYrWVNZNTlQRElwdmpYNU5uNzh6Z0wyVlVhaDd0MTUzRUUrN2pRNERQVGM2ZUl6ZA==",
-        "auth_token": "c36ef12d62af82e8585d543b48e90306",
-        "Crypto": "0.00",
-        "Winning": "0.00",
-        "Bonus": "0.00",
-        "RealCash": "0.00",
-        "Coin": "0",
-        "sports_id": "2"
-    },
-    "Divya_Nirankari": {
-        "app_user": "uoPtktRUAQjFhaYCkLxGwd",
-        "app_username": "Ypux347",
-        "phone": "9106915347",
-        "token": "Q1FSSzA0dktOd2dCRmllbGYrWVNZNTlQRElwdmpYNU5uNzh6Z0wyVlVhaDd0MTUzRUUrN2pRNERQVGM2ZUl6ZA==",
-        "auth_token": "c36ef12d62af82e8585d543b48e90306",
-        "Crypto": "0.00",
-        "Winning": "0.00",
-        "Bonus": "0.00",
-        "RealCash": "0.00",
-        "Coin": "0"
+    "9537206522": {
+        "sports_id": "1",
+        "selected_game": {
+            "MatchUID": "65175",
+            "tournament_name": "Big Bash League",
+            "max_prize": "50000.00",
+            "ScheduleDate": "2023-12-20 08:15:00",
+            "ScheduleDateOriginal": "2023-12-20 08:15:00",
+            "GameGroupID": "create_12813"
+        }
     },
     "1234567890": {
         "sports_id": "1",
         "selected_game": {
-            "GameGroupID": "create_12722",
-            "tournament_name": "ECS Spain T10",
+            "MatchUID": "65840",
+            "tournament_name": "Bangladesh tour of New Zealand",
             "max_prize": "50000.00",
-            "ScheduleDate": "2023-12-14 11:45:00",
-            "ScheduleDateOriginal": "2023-12-14 11:45:00"
-        }
-    },
-    "9537206522": {
-        "sports_id": "1",
-        "selected_game": {
-            "MatchUID": "71894",
-            "GameGroupID": "create_12706",
-            "tournament_name": "Sharjah Hundred League",
-            "max_prize": "50000.00",
-            "ScheduleDate": "2023-12-16 17:45:00",
-            "ScheduleDateOriginal": "2023-12-16 17:45:00"
+            "ScheduleDate": "2023-12-19 22:00:00",
+            "ScheduleDateOriginal": "2023-12-19 22:00:00"
         }
     },
     "9427712949": {
         "sports_id": "1",
         "selected_game": {
-            "GameGroupID": "create_12700",
-            "tournament_name": "Nature Isle T10",
+            "MatchUID": "63148",
+            "tournament_name": "England tour of West Indies",
             "max_prize": "50000.00",
-            "ScheduleDate": "2023-12-13 16:00:00",
-            "ScheduleDateOriginal": "2023-12-13 16:00:00"
+            "ScheduleDate": "2023-12-19 20:00:00",
+            "ScheduleDateOriginal": "2023-12-19 20:00:00"
         }
     }
 }
